@@ -1,0 +1,16 @@
+REQUEST
+    Communication Protocol :: HTTP
+    Encoding Format :: XML
+    Semantics
+        Ontology :: IoT-Lite
+    
+RESPONSE
+    Communication Protocol :: HTTP
+    Encoding Format :: XML
+    Semantics
+        Standard :: SenML
+        Ontology :: IoT-Lite
+        Notation
+            v : temperature
+            u : unit
+            t : time

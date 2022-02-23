@@ -1,0 +1,13 @@
+REQUEST
+    <static> Communication Protocol :: HTTP
+    Encoding Format :: JSON
+    
+RESPONSE
+    <static> Communication Protocol :: HTTP
+    Encoding Format :: JSON
+    Semantics
+        <supposed> Standard :: SenML
+        Notation
+            v : unit
+            u : temperature
+            t : time
