@@ -1,5 +1,0 @@
-src/main/java/com/system/controllers/ApiUtil.java
-src/main/java/com/system/controllers/TemperatureApi.java
-src/main/java/com/system/controllers/TemperatureApiController.java
-src/main/java/com/system/controllers/TemperatureApiDelegate.java
-src/main/java/com/system/model/InlineResponse200.java

@@ -1,2 +1,36 @@
-/src/main/resources/mismatchAnalysis/arrowheadFramework
-/target/classes/mismatchAnalysis/arrowheadFramework
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.factorypath
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
+wrapper
+/mismatch-analysis/target
+/temperature-sensor/target
+/mvnw
+/mvnw.cmd
+/.settings
+*.prefs
+/.metadata/
+
+*.log
+
+
