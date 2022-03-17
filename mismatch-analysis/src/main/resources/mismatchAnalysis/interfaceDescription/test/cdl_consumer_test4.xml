@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contract xmlns="http://cdl/2018/01" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+	<context xml:lang="EN">
+		<system>temperature-test-controller-4</system>
+		<description>Offers access to the sensor's data</description>
+		<keywords>mismatch_check</keywords>
+	</context>
+
+	<interface protocol="HTTP" version="1.1" address="http://127.0.0.1/8888" >
+	
+		<method name="POST" id="get-temperature">
+			
+			<path>
+				<option value="/temperature/{unit}" />
+				<param name="unit" style="single" type="xs:string" required="true" />
+			</path>
+			
+			<request>
+				<format> 
+					<encode>
+					<option name="JSON" mediaType="application/json" version="2.3.0" />
+					</encode>
+					<security mode="not_secure"/>
+					<qos level="0"/> 
+					<semantic>
+						<notation ontology="IoT-Lite" ref="https://www.w3.org/Submission/2015/SUBM-iot-lite-20151126/"/> 
+					</semantic>
+				</format>
+				<payload>
+					<complextype type="List"/> 					
+					<element name="value" type="int"/>
+					<element name="unit" type="String"/>
+					<element name="time" type="long"/>
+				</payload>
+			</request>
+			
+			<response status="200">
+			
+			 </response>
+			 
+			 <fault name="Not Found" code="404" />
+		</method>
+	</interface>
+</contract>
