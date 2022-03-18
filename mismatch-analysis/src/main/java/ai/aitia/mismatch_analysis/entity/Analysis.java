@@ -1,6 +1,7 @@
 package ai.aitia.mismatch_analysis.entity;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 
 /**
@@ -19,6 +20,9 @@ public class Analysis {
 	private HashMap<String, HashMap<String, Integer>> mismatch;
 	private HashMap<String, HashMap<String, Integer>> uncertainty;
 	private HashMap<String, HashMap<String, HashMap<String, Integer>>> notation;
+	
+	// Meaning of the tags used
+	private HashMap<String, String> tagMeaning;
 	
 	// Quantitative level of compatibility
 	private double quantitativeM;
@@ -46,6 +50,7 @@ public class Analysis {
 	public Analysis() {
 		mismatch = new HashMap<String, HashMap<String, Integer>>();
 		uncertainty = new HashMap<String, HashMap<String, Integer>>();
+		tagMeaning = new HashMap<String, String>();
 		
 		/* ************************* */
 		/* Protocol Mismatch Section */
@@ -132,6 +137,17 @@ public class Analysis {
 		setFlag("");
 		setSystem("");
 		setService("");
+		
+		tagMeaning.put("protocol", "Different names");
+		tagMeaning.put("version", "Different versions");
+		
+		tagMeaning.put("nameReq", "Different names in the request");
+		tagMeaning.put("versionReq", "Different versions in the request");
+		tagMeaning.put("nameRes", "Different names in the response");
+		tagMeaning.put("versionRes", "Different versions in the request");
+		
+		tagMeaning.put("mediaTypeReq", "Different types in the request");
+		tagMeaning.put("mediaTypeRes", "Different types in the response");
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -143,6 +159,9 @@ public class Analysis {
 	
 	public HashMap<String, HashMap<String, Integer>> getUncertainty() { return uncertainty; }
 	public void setUncertainty(HashMap<String, HashMap<String, Integer>> uncertainty) { this.uncertainty = uncertainty; }
+	
+	public HashMap<String, String> getTagMeaning() { return tagMeaning; }
+	public void setTagMeaning(HashMap<String, String> tagMeaning) { this.tagMeaning = tagMeaning; }
 	
 	public double getQuantitativeM() { return quantitativeM; }
 	public void setQuantitativeM(double quantitativeM) { this.quantitativeM = quantitativeM; }
@@ -306,5 +325,59 @@ public class Analysis {
 					"COMPATIBILITY:\n" + mismatchString + notationString + quantitativeMString + qualitativeMString + 
 					"***********************************************************************************************************\n\n" +
 					"UNCERTAINTY:\n" + uncertaintyString + quantitativeUString + qualitativeUString;
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	/**
+	 * Auxiliar method for displaying compatibility and uncertainty summaries
+	 */
+	public void summarize() {
+		System.out.println(
+				"***********************************************************************************************************\n\n" +
+				"COMPATIBILITY SUMMARY: \n" +
+				this.recursiveSummary(this.getMismatch(), new LinkedList<String>(),  "compatibility"));
+		
+		System.out.println(
+				"***********************************************************************************************************\n\n" +
+				"UNCERTAINTY SUMMARY: \n" +
+				this.recursiveSummary(this.getUncertainty(), new LinkedList<String>(), "uncertainty"));
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	@SuppressWarnings("unchecked")
+	/**
+	 * Summarizes the contents of the map depending on whether it is a compatibility or uncertainty 
+	 * summary
+	 * 
+	 * @param actualMap		The map that acts as root at a given level
+	 * @param parentNames	The parent names of the actual node
+	 * @param summary		The string containing the summary of the map at a given level
+	 * @param type			(compatibility) or (uncertainty) summary
+	 * @return				A string containing the summary of the map
+	 */
+	private String recursiveSummary(HashMap<String, ?> actualMap, LinkedList<String> parentNames, String type) {
+		String summary = "";
+		
+		for(Entry<String, Object> entry : ((HashMap<String, Object>) actualMap).entrySet())
+			if(entry.getValue() instanceof HashMap<?, ?>) {
+				LinkedList<String> newParentNames = new LinkedList<String>(parentNames);
+				newParentNames.add(entry.getKey());
+				summary += recursiveSummary((HashMap<String, Object>) entry.getValue(), newParentNames, type);
+			} else {
+				if(type.equals("compatibility")) {
+					if(Integer.valueOf(entry.getValue().toString()) == 0) {
+						summary += "\tMismatch in " + parentNames.getFirst() + ":\n " + 
+										"\t\t" + tagMeaning.get(entry.getKey()) + "\n";
+					}
+				}
+				
+				else
+					if(Integer.valueOf(entry.getValue().toString()) == 1) {
+						summary += "\tUncertainty in " + parentNames.getFirst() + ":\n " + 
+										"\t\t" + tagMeaning.get(entry.getKey()) + "\n";
+					}
+			}
+		
+		return summary;
 	}
 }

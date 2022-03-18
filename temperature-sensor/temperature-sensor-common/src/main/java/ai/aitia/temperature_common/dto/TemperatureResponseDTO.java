@@ -28,10 +28,6 @@ public class TemperatureResponseDTO implements Serializable {
 
 	//-------------------------------------------------------------------------------------------------
 	public int getTemperature() { return temperature; }
-	
-	//-------------------------------------------------------------------------------------------------
 	public String getUnit() { return unit; }
-	
-	//-------------------------------------------------------------------------------------------------
 	public double getTime() { return time; }	
 }

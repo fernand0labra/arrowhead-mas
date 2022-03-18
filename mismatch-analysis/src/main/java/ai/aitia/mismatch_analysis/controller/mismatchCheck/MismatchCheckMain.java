@@ -20,6 +20,12 @@ public class MismatchCheckMain {
 	// methods
 	
 	//-------------------------------------------------------------------------------------------------
+	/**
+	 * Analyses each of the provider service definitions with the consumer
+	 * 
+	 * @param serviceContracts	The consumer and providers service definitions
+	 * @return					A list of analysis for each pair of (consumer, provider_i)
+	 */
 	public static ArrayList<Analysis> main(HashMap<String, ArrayList<ServiceContract>> serviceContracts) {
 		ServiceContract consumer = serviceContracts.get("consumer").get(0); // Obtain the consumer SC
 		ArrayList<ServiceContract> providers = serviceContracts.get("provider"); // Obtain the list of provider SCs
@@ -28,7 +34,7 @@ public class MismatchCheckMain {
 		
 		// Analyse each of the SCs of the provider
 		for(ServiceContract provider : providers)
-			analysisList.add(MismatchUtils.analyse(consumer, provider));
+			analysisList.add(AnalysisUtils.analyse(consumer, provider));
 			
 		
 		return analysisList;

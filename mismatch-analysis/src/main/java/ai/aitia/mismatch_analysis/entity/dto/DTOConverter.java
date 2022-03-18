@@ -28,6 +28,7 @@ public class DTOConverter {
 				analysis.getMismatch(),
 				analysis.getUncertainty(),
 				analysis.getNotation(),
+				analysis.getTagMeaning(),
 				analysis.getQuantitativeM(), analysis.getQualitativeM(),
 				analysis.getQuantitativeU(), analysis.getQualitativeU(),
 				analysis.getFlag(),
