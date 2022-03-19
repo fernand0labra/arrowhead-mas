@@ -2,7 +2,7 @@
 <contract xmlns="http://cdl/2018/01" xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
 	
 	<context xml:lang="EN">
-		<system>temperature-sensor-2</system>
+		<system>temperature-controller-1</system>
 		<description>Offers access to the sensor's data</description>
 		<keywords>mismatch_check</keywords>
 	</context>
@@ -19,7 +19,7 @@
 			<request>
 				<format> 
 					<encode>
-						<option name="XML" mediaType="application/xml" version="1.0" />
+						<option name="JSON" mediaType="application/json" version="2.3.0" />
 					</encode>
 					<security mode="not_secure"/>
 					<qos level="0"/> 
@@ -36,14 +36,11 @@
 			<response status="200">
 				<format> 
 					<encode>
-						<option name="XML" mediaType="application/xml" version="1.0" />
+						<option name="JSON" mediaType="application/json" version="2.3.0" />
 					</encode>
 					<security mode="not_secure"/>
 					<qos level="0"/> 
-					<semantic>
-						<standard name="SenML" version="RFC8428"/>
-						<extRef name="SenML" ref="https://tools.ietf.org/html/rfc8428" type="xml:url"/>
-					</semantic>
+					<!-- NO SEMANTICS DEFINED -->
 				</format>
 				<payload>
 					<complextype type="null"/> 					

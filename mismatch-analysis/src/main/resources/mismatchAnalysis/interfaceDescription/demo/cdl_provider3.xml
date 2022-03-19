@@ -2,7 +2,7 @@
 <contract xmlns="http://cdl/2018/01" xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
 	
 	<context xml:lang="EN">
-		<system>temperature-sensor-5</system>
+		<system>temperature-sensor-1</system>
 		<description>Offers access to the sensor's data</description>
 		<keywords>mismatch_check</keywords>
 	</context>
@@ -41,14 +41,18 @@
 					<security mode="not_secure"/>
 					<qos level="0"/> 
 					<semantic>
-						<notation ontology="IoT-Lite" ref="https://www.w3.org/Submission/2015/SUBM-iot-lite-20151126/"/> 
+						<standard name="SenML" version="RFC8428"/>
+						<extRef name="SenML" ref="https://tools.ietf.org/html/rfc8428" type="xml:url"/>
 					</semantic>
 				</format>
 				<payload>
 					<complextype type="null"/> 					
 					<element name="temperature" type="Integer"/>
 					<element name="unit" type="String"/>
-					<element name="time" type="Double"/>
+					<!-- DIFFERENT TYPE -->
+					<element name="time" type="Long"/>
+					<!-- NEW VARIABLE -->
+					<element name="newVariable" type="String"/>
 				</payload>
 			 </response>
 			 

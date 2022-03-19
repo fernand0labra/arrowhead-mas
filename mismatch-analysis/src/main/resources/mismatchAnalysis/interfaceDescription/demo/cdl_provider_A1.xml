@@ -2,12 +2,13 @@
 <contract xmlns="http://cdl/2018/01" xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
 	
 	<context xml:lang="EN">
-		<system>temperature-sensor-3</system>
+		<system>temperature-controller-1</system>
 		<description>Offers access to the sensor's data</description>
 		<keywords>mismatch_check</keywords>
 	</context>
 
-	<interface protocol="HTTP" version="1.1" address="http://127.0.0.1/8888" >
+	<!-- DIFFERENT PROTOCOL -->
+	<interface protocol="COAP" version="1.1" address="http://127.0.0.1/8888" >
 	
 		<method name="GET" id="get-temperature">
 			
@@ -20,11 +21,13 @@
 				<format> 
 					<encode>
 						<option name="JSON" mediaType="application/json" version="2.3.0" />
-					</encode> 
+					</encode>
 					<security mode="not_secure"/>
 					<qos level="0"/> 
+					<!-- DIFFERENT SEMANTICS -->
 					<semantic>
-						<notation ontology="IoT-Lite" ref="https://www.w3.org/Submission/2015/SUBM-iot-lite-20151126/"/> 
+						<standard name="SenML" version="RFC8428"/>
+						<extRef name="SenML" ref="https://tools.ietf.org/html/rfc8428" type="xml:url"/>
 					</semantic>
 				</format>
 				<payload>
@@ -37,7 +40,7 @@
 				<format> 
 					<encode>
 						<option name="JSON" mediaType="application/json" version="2.3.0" />
-					</encode> 
+					</encode>
 					<security mode="not_secure"/>
 					<qos level="0"/> 
 					<semantic>
@@ -47,8 +50,8 @@
 				</format>
 				<payload>
 					<complextype type="null"/> 					
-					<element name="v" type="String" variation="unit"/>
-					<element name="u" type="Integer" variation="temperature"/>
+					<element name="v" type="Integer" variation="temperature"/>
+					<element name="u" type="String" variation="unit"/>
 					<element name="t" type="Double" variation="time"/>
 				</payload>
 			 </response>

@@ -2,12 +2,12 @@
 <contract xmlns="http://cdl/2018/01" xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
 	
 	<context xml:lang="EN">
-		<system>temperature-sensor-4</system>
+		<system>temperature-controller-1</system>
 		<description>Offers access to the sensor's data</description>
 		<keywords>mismatch_check</keywords>
 	</context>
 
-	<interface protocol="COAP" address="http://127.0.0.1/8888" >
+	<interface protocol="HTTP" version="1.1" address="http://127.0.0.1/8888" >
 	
 		<method name="GET" id="get-temperature">
 			
@@ -45,12 +45,7 @@
 						<extRef name="SenML" ref="https://tools.ietf.org/html/rfc8428" type="xml:url"/>
 					</semantic>
 				</format>
-				<payload>
-					<complextype type="null"/> 					
-					<element name="v" type="Integer" variation="temperature"/>
-					<element name="u" type="String" variation="unit"/>
-					<element name="t" type="Double" variation="time"/>
-				</payload>
+				<!-- EMPTY NOTATION -->
 			 </response>
 			 
 			 <fault name="Not Found" code="404" />

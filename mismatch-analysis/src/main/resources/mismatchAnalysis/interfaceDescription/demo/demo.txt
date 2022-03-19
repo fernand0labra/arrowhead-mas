@@ -1,0 +1,44 @@
+demo_1 (OK)
+	cdl_consumer
+	cdl_provider1
+		NO SEMANTICS DEFINED (REQ)
+		NOTATION DIFFERENT NAMES - OK (RES)
+
+demo_2 (ALTER_G)
+	cdl_consumer
+	cdl_provider2
+		DIFFERENT PROTOCOL
+		DIFFERENT ENCODING (REQ/RES)
+
+demo_3 (NOT_OK)
+	temperature-controller-3 (cdl_consumer)
+	temperature-sensor-3 (cdl_provider)
+		NOTATION DIFFERENT TYPE (RES)
+		NOTATION NEW VARIABLE (RES)
+
+demo_A
+	cdl_consumer
+	cdl_provider_A1 (ALTER_G)
+		DIFFERENT PROTOCOL
+		DIFFERENT SEMANTICS (REQ)
+	cdl_provider_A2 (OK)
+		NOTATION DIFFERENT NAMES - OK (RES)
+	cdl_provider_A3 (NOT_OK)
+		EMPTY REQUEST
+	cdl_provider_A4 (NOT_OK)
+		EMPTY NOTATION (RES)
+
+demo_B
+	openapi_consumer
+	openapi_provider_B1 (ALTER_G)
+		DIFFERENT ENCODING
+	openapi_provider_B2 (NOT_OK)
+		NOTATION DIFFERENT NAMES - NOT_OK (RES)
+
+demo_mix
+	cdl_consumer
+	openapi_provider_B2 
+		NOTATION DIFFERENT NAMES - NOT_OK (RES)
+	cdl_provider2 (ALTER_G)
+		DIFFERENT PROTOCOL
+		DIFFERENT ENCODING (REQ/RES)

@@ -77,6 +77,7 @@ public class AnalysisResponseDTO implements Serializable {
 	public HashMap<String, HashMap<String, Integer>> getMismatch() { return mismatch; }
 	public HashMap<String, HashMap<String, Integer>> getUncertainty() { return uncertainty; }
 	public HashMap<String, HashMap<String, HashMap<String, Integer>>> getNotation() { return notation; }
+	public HashMap<String, String> getTagMeaning() { return tagMeaning; };
 	
 	public double getQuantitativeM() { return quantitativeM; }
 	public String getQualitativeM() { return qualitativeM; }
@@ -233,18 +234,47 @@ public class AnalysisResponseDTO implements Serializable {
 	
 	//-------------------------------------------------------------------------------------------------
 	/**
-	 * Auxiliar method for displaying compatibility and uncertainty summaries
+	 * Summarize the data stored in the analysis
 	 */
 	public void summarize() {
-		System.out.println(
-				"***********************************************************************************************************\n\n" +
-				"COMPATIBILITY SUMMARY: \n" +
-				this.recursiveSummary(this.getMismatch(), new LinkedList<String>(),  "compatibility"));
+		String result = "";
+		
+		switch(this.flag) {
+		case "OK":
+			result = "\tOK: No actions required\n";
+			break;
+		case "ALTER_T":
+			result = "\tALTER_T: Call Translator System\n";
+			break;
+		case "ALTER_G":
+			result = "\tALTER_G: Call Interface Generator System\n";
+			break;
+		case "NOT_OK":
+			result = "\tNOT_OK: Impossible exchange of information\n";
+			break;
+		}
 		
 		System.out.println(
 				"***********************************************************************************************************\n\n" +
-				"UNCERTAINTY SUMMARY: \n" +
-				this.recursiveSummary(this.getUncertainty(), new LinkedList<String>(), "uncertainty"));
+				"RESULT: \n" + result);
+		
+		String compatibility = this.recursiveSummary(this.getMismatch(), new LinkedList<String>(),  "compatibility");
+		
+		if(compatibility.equals(""))
+			compatibility = "\tNo mismatch between the service definitions\n";
+		
+		System.out.println(
+				"***********************************************************************************************************\n\n" +
+				"COMPATIBILITY SUMMARY: \n" + compatibility);
+		
+		String uncertainty = this.recursiveSummary(this.getUncertainty(), new LinkedList<String>(), "uncertainty");
+		
+		if(uncertainty.equals(""))
+			uncertainty = "\tNo uncertainty between the service definitions\n";
+		
+		System.out.println(
+				"***********************************************************************************************************\n\n" +
+				"UNCERTAINTY SUMMARY: \n" + uncertainty);
 	}
 	
 	//-------------------------------------------------------------------------------------------------

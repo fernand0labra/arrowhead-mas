@@ -304,7 +304,7 @@ public class OpenapiUtils extends Utils {
 				/* ****************************** */
 				
 				// Set Encoding
-				ServiceElement encodingRes = new ServiceElement();
+				ServiceElement encodingRes = method.getResponse().getFormat().getEncoding();
 				encodingRes.setName(methodInfo.get("200").get("encoding"));
 				encodingRes.setVersion("");
 				encodingRes.setRef("");
@@ -319,8 +319,6 @@ public class OpenapiUtils extends Utils {
 				method.setName(actualOperation);
 				method.setId(methodInfo.get(actualOperation).get("operationId"));
 			}
-			
-		System.out.println(sc);
 		
 		return sc;
 	}

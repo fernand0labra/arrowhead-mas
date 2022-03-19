@@ -11,7 +11,7 @@ paths:
     get:
       summary: Returns the temperature info.
       description: Temperature info obtained from the sensor
-      operationId: getTemperature
+      operationId: get-temperature
       parameters:
         - name: unit
           in: path
@@ -23,7 +23,7 @@ paths:
         '200':
           description: Successful operation
           content:
-            application/json:
+            application/xml:
               schema: 
                 type: object
                 properties:

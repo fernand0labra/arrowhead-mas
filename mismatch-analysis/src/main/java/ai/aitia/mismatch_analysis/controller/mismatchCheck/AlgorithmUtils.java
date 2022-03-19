@@ -185,47 +185,57 @@ public class AlgorithmUtils {
 		double standard = 0;
 		double ontology = 0;
 		
-		// If it uses a standard in the request and/or the response
-		boolean standardReq = 
-				!semanticConditions.get("consumerWithoutStandardReq") && !semanticConditions.get("providerWithoutStandardReq") && 
-				semanticConditions.get("consumerWithoutOntologyReq") && semanticConditions.get("providerWithoutOntologyReq");
+		double standardName = weights.get("standardName");
+		double standardVersion = weights.get("standardVersion");
 		
-		boolean standardRes = 
-				!semanticConditions.get("consumerWithoutStandardRes") && !semanticConditions.get("providerWithoutStandardRes") && 
-				semanticConditions.get("consumerWithoutOntologyRes") && semanticConditions.get("providerWithoutOntologyRes");
+		double ontologyName = weights.get("ontologyName");
+		double ontologyVersion = weights.get("ontologyVersion");
 		
-		if(standardReq || standardRes) { 
-			
-				double standardName = weights.get("standardName");
-				double standardVersion = weights.get("standardVersion");
-				
-				if(standardReq) // If it uses the standard in the request
+		// If it uses the standard in the request
+		if(!semanticConditions.get("consumerWithoutStandardReq") || !semanticConditions.get("providerWithoutStandardReq"))
+			// If both contracts define a standard
+			if(!semanticConditions.get("consumerWithoutStandardReq") && !semanticConditions.get("providerWithoutStandardReq"))
+				standard += mapAnalysis.get("standard").get("nameReq") * standardName + mapAnalysis.get("standard").get("versionReq") * standardVersion;
+			// Only one contract defines a standard
+			else
+				// If the other contract does not have semantics defined
+				if(semanticConditions.get("consumerWithoutOntologyReq") && semanticConditions.get("providerWithoutOntologyReq")) 
 					standard += mapAnalysis.get("standard").get("nameReq") * standardName + mapAnalysis.get("standard").get("versionReq") * standardVersion;
-				
-				if(standardRes) // If it uses the standard in the response
-					standard += mapAnalysis.get("standard").get("nameRes") * standardName + mapAnalysis.get("standard").get("versionRes") * standardVersion;
-		} 
 		
-		// If it uses an ontology in the request and/or the response
-		boolean ontologyReq = 
-				semanticConditions.get("consumerWithoutStandardReq") && semanticConditions.get("providerWithoutStandardReq") && 
-				!semanticConditions.get("consumerWithoutOntologyReq") && !semanticConditions.get("providerWithoutOntologyReq");
-		
-		boolean ontologyRes = 
-				semanticConditions.get("consumerWithoutStandardRes") && semanticConditions.get("providerWithoutStandardRes") && 
-				!semanticConditions.get("consumerWithoutOntologyRes") && !semanticConditions.get("providerWithoutOntologyRes");
-		
-		if(ontologyReq || ontologyRes) { 
-				double ontologyName = weights.get("ontologyName");
-				double ontologyVersion = weights.get("ontologyVersion");
-				
-				if(ontologyReq) // If it uses the ontology in the request
+		// If it uses the ontology in the request
+		if(!semanticConditions.get("consumerWithoutOntologyReq") || !semanticConditions.get("providerWithoutOntologyReq")) 
+			// If both contracts define an ontology
+			if(!semanticConditions.get("consumerWithoutOntologyReq") && !semanticConditions.get("providerWithoutOntologyReq"))
+				ontology += mapAnalysis.get("ontology").get("nameReq") * ontologyName + mapAnalysis.get("ontology").get("versionReq") * ontologyVersion;
+			// Only one contract defines an ontology
+			else
+				// If the other contract does not have semantics defined
+				if(semanticConditions.get("consumerWithoutStandardReq") && semanticConditions.get("providerWithoutStandardReq"))
 					ontology += mapAnalysis.get("ontology").get("nameReq") * ontologyName + mapAnalysis.get("ontology").get("versionReq") * ontologyVersion;
-				
-				if(ontologyRes) // If it uses the ontology in the response
-					ontology += mapAnalysis.get("ontology").get("nameRes") * ontologyName + mapAnalysis.get("ontology").get("versionRes") * ontologyVersion;
-		}
 		
+		// If it uses the standard in the request
+		if(!semanticConditions.get("consumerWithoutStandardRes") || !semanticConditions.get("providerWithoutStandardRes"))
+			// If both contracts define a standard
+			if(!semanticConditions.get("consumerWithoutStandardRes") && !semanticConditions.get("providerWithoutStandardRes"))
+				standard += mapAnalysis.get("standard").get("nameRes") * standardName + mapAnalysis.get("standard").get("versionRes") * standardVersion;
+			// Only one contract defines a standard
+			else
+				// If the other contract does not have semantics defined
+				if(semanticConditions.get("consumerWithoutOntologyRes") && semanticConditions.get("providerWithoutOntologyRes")) 
+					standard += mapAnalysis.get("standard").get("nameRes") * standardName + mapAnalysis.get("standard").get("versionRes") * standardVersion;
+		
+		// If it uses the ontology in the request
+		if(!semanticConditions.get("consumerWithoutOntologyRes") || !semanticConditions.get("providerWithoutOntologyRes")) 
+			// If both contracts define an ontology
+			if(!semanticConditions.get("consumerWithoutOntologyRes") && !semanticConditions.get("providerWithoutOntologyRes"))
+				ontology += mapAnalysis.get("ontology").get("nameRes") * ontologyName + mapAnalysis.get("ontology").get("versionRes") * ontologyVersion;
+			// Only one contract defines an ontology
+			else
+				// If the other contract does not have semantics defined
+				if(semanticConditions.get("consumerWithoutStandardRes") && semanticConditions.get("providerWithoutStandardRes"))
+					ontology += mapAnalysis.get("ontology").get("nameRes") * ontologyName + mapAnalysis.get("ontology").get("versionRes") * ontologyVersion;
+		
+
 		// If the standard or ontology is empty in the request and/or response
 		boolean emptyReq = 
 				semanticConditions.get("consumerWithoutStandardReq") && semanticConditions.get("providerWithoutStandardReq") && 
