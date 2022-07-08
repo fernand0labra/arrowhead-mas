@@ -1,0 +1,173 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>eu.arrowhead</groupId>
+		<artifactId>support</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	
+	<groupId>ai.aitia</groupId>	
+	<artifactId>arrowhead-application-library-java-spring</artifactId>
+	<version>4.4.0.2</version>
+	<packaging>jar</packaging>
+	
+	<name>application-library-java-spring</name>
+	<description>Arrowhead Application Library using Spring Boot</description>	
+	<url>https://github.com/eclipse-arrowhead/application-library-java-spring</url>
+	
+	<licenses>
+    	<license>
+	     	<name>Eclipse Public License - v 2.0</name>
+	     	<url>https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt</url>
+	   </license>
+  	</licenses>
+  	
+  	<developers>
+		<developer>
+			<name>Tamas Bordi</name>
+			<email>tbordi@aitia.ai</email>
+			<organization>AITIA International Inc.</organization>
+			<organizationUrl>http://www.aitia.ai/</organizationUrl>
+		</developer>
+		
+		<developer>
+			<name>Gabor Majoros</name>
+			<email>gmajoros@aitia.ai</email>
+			<organization>AITIA International Inc.</organization>
+			<organizationUrl>http://www.aitia.ai/</organizationUrl>
+		</developer>
+		
+		<developer>
+			<name>Rajmund Bocsi</name>
+			<email>rbocsi@aitia.ai</email>
+			<organization>AITIA International Inc.</organization>
+			<organizationUrl>http://www.aitia.ai/</organizationUrl>
+		</developer>
+		
+		<developer>
+			<name>Szvetlin Tanyi</name>
+			<email>szvetlin@aitia.ai</email>
+			<organization>AITIA International Inc.</organization>
+			<organizationUrl>http://www.aitia.ai/</organizationUrl>
+		</developer>
+	</developers>
+	
+	<scm>
+		<connection>scm:git:git://github.com/eclipse-arrowhead/application-library-java-spring.git</connection>
+		<developerConnection>scm:git:ssh://github.com:eclipse-arrowhead/application-library-java-spring.git</developerConnection>
+		<url>http://github.com/eclipse-arrowhead/application-library-java-spring/tree/master</url>
+	</scm>
+	
+	<dependencies>
+		<dependency>
+			<groupId>eu.arrowhead</groupId>
+			<artifactId>arrowhead-core-common-essentials-java-spring</artifactId>
+			<version>4.4.0</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bitbucket.b_c</groupId>
+			<artifactId>jose4j</artifactId>
+			<version>0.6.5</version>
+		</dependency>	    
+	    
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+			<version>1.65</version>
+			<scope>compile</scope>
+		</dependency>  
+	</dependencies>
+	
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+	
+		<plugins>
+			<plugin>
+    			<groupId>org.springframework.boot</groupId>
+    			<artifactId>spring-boot-maven-plugin</artifactId>
+    			<configuration>
+    				<skip>true</skip>
+    			</configuration>
+  			</plugin>
+  			
+  			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+      			<artifactId>maven-source-plugin</artifactId>
+			    <executions>
+					<execution>
+				        <id>attach-sources</id>
+				        <goals>
+							<goal>jar-no-fork</goal>
+				        </goals>
+				     </execution>
+			    </executions>
+			</plugin>
+		</plugins>
+  	</build>	
+</project>

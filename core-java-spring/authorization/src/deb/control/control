@@ -1,0 +1,10 @@
+Package: arrowhead-authorization
+Version: [[version]]
+Section: contrib/java
+Priority: optional
+Architecture: all
+Maintainer: Svetlin Tanyi <szvetlin@aitia.ai>
+Homepage: http://www.arrowhead.eu
+Description: Arrowhead Authorization System
+Distribution: development
+Depends: java-runtime-headless, virtual-mysql-server, arrowhead-core-common
