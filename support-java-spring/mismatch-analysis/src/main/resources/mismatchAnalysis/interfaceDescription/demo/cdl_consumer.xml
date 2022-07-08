@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contract xmlns="http://cdl/2018/01" xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+	
+	<context xml:lang="EN">
+		<system>temperature-controller-1</system>
+		<description>Offers access to the sensor's data</description>
+		<keywords>mismatch_check</keywords>
+	</context>
+
+	<interface protocol="HTTP" version="1.1" address="http://127.0.0.1/8888" >
+	
+		<method name="GET" id="get-temperature">
+			
+			<path>
+				<option value="/temperature/{unit}" />
+				<param name="unit" style="single" type="xs:string" required="true" />
+			</path>
+			
+			<request>
+				<format> 
+					<encode>
+						<option name="JSON" mediaType="application/json" version="2.3.0" />
+					</encode>
+					<security mode="not_secure"/>
+					<qos level="0"/> 
+					<semantic>
+						<notation ontology="IoT-Lite" ref="https://www.w3.org/Submission/2015/SUBM-iot-lite-20151126/"/> 
+					</semantic>
+				</format>
+				<payload>
+					<complextype type="null"/> 					
+					<element name="unit" type="String"/>
+				</payload>
+			</request>
+			
+			<response status="200">
+				<format> 
+					<encode>
+						<option name="JSON" mediaType="application/json" version="2.3.0" />
+					</encode>
+					<security mode="not_secure"/>
+					<qos level="0"/> 
+					<!-- NO SEMANTICS DEFINED -->
+				</format>
+				<payload>
+					<complextype type="null"/> 					
+					<element name="v" type="Integer" variation="temperature"/>
+					<element name="u" type="String" variation="unit"/>
+					<element name="t" type="Double" variation="time"/>
+				</payload>
+			 </response>
+			 
+			 <fault name="Not Found" code="404" />
+		</method>
+	</interface>
+</contract>

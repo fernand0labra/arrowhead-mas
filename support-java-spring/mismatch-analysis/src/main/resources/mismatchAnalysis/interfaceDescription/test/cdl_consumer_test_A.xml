@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contract xmlns="http://cdl/2018/01" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+	<context xml:lang="EN">
+		<system>temperature-test-controller-A</system>
+		<description>Offers access to the sensor's data</description>
+		<keywords>mismatch_check</keywords>
+	</context>
+
+	<interface protocol="HTTP" version="1.1" address="http://127.0.0.1/8888" >
+	
+		<method name="POST" id="get-temperature">
+			
+			<path>
+				<option value="/temperature/{unit}" />
+				<param name="unit" style="single" type="xs:string" required="true"/>
+			</path>
+			
+			<request>
+				<format> 
+					<encode>
+					<option name="JSON" mediaType="application/json" version="2.3.0" />
+					</encode>
+					<security mode="not_secure"/>
+					<qos level="0"/> 
+					<semantic>
+						<standard name="SenML" version="RFC8428"/>
+						<extRef name="SenML" ref="https://tools.ietf.org/html/rfc8428" type="xml:url"/>
+					</semantic>
+				</format>
+				<payload>
+					<complextype type="null"/> 					
+					<element name="v" type="int" variation="temperature"/>
+					<element name="u" type="String" variation="unit"/>
+					<element name="t" type="long" variation="time"/>
+				</payload>
+			</request>
+			
+			<response status="200">
+						<format> 
+							<encode>
+					<option name="JSON" mediaType="application/json" version="2.3.0" />
+					</encode>
+							<security mode="not_secure"/>
+							<qos level="0"/> 
+							<semantic>
+								<standard name="SenML" version="RFC8428"/>
+								<extRef name="SenML" ref="https://tools.ietf.org/html/rfc8428" type="xml:url"/>
+							</semantic>
+						</format>
+						<payload>
+							<complextype type="null"/> 					
+							<element name="v" type="Integer" variation="temperature"/>
+							<element name="u" type="String" variation="unit"/>
+							<element name="t" type="Double" variation="time"/>
+						</payload>
+					 </response>
+		
+		</method>
+	</interface>
+</contract>
